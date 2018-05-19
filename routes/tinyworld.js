@@ -15,47 +15,6 @@ router.use(function timeLog(req,res,next){
 	next();
 });
 
-router.get('/',function(req,res){
-	console.log(req.url);
-	var arg1 = url.parse(req.url,true).query;
-	console.log(arg1);
-	var name = arg1['names'];
-	var selectSql = "select * from contacts where name='"+name+"'" ;
-	connection.query(selectSql,function(err,rows){
-		if(err){
-			console.log("error");
-		}
-		console.log(rows[0]['number']);
-		var number = rows[0]['number'];	
-		console.log("number is"+number);
-		var json = JSON.stringify({
-			SomeWords:number});
-	return res.send(json);
-	});
-});
-
-
-router.delete('/',function(req,res){
-	console.log(req.url);
-	var arg1 = url.parse(req.url,true).query;
-	console.log(arg1);
-	var name = arg1['names'];
-	console.log(name);
-	var deleteSql = "delete from contacts where name='"+name+"'" ;
-	connection.query(deleteSql,function(err,rows){
-		if(err){
-                        var json = JSON.stringfy({
-				SomeWords:"Wrong Name"});
-			console.log("error");
-			return res.send(json);
-		}
-		else{
-		var json = JSON.stringify({
-			SomeWords:"deleteSuccessfully"});
-	return res.send(json);
-	}
-	});
-});
 
 router.post('/login',function(req,res){
 	console.log(req.body);
@@ -82,22 +41,6 @@ router.post('/login',function(req,res){
 	});
 });
 
-router.patch('/',function(req,res){
-	console.log(req.body);
-	console.log(req.param('names'));
-	var name = req.param('names');
-	var number = req.param('number');
-	var updateSql = "update contacts set number = ? where name = ?" ;
-	var updateSqlParams = [number,name];
-	connection.query(updateSql,updateSqlParams,function(err,rows){
-		if(err){
-			console.log("error");
-		}
-		var json = JSON.stringify({
-			SomeWords:"updateSuccessfully"});
-		res.send(json);
-	});
-});
 
 
 router.get('/about',function(req,res){

@@ -27,7 +27,7 @@ router.post('/login',function(req,res){
 		if(err){
 			console.log("error");
 		}
-		if(rows[0]['password']==password2)
+		if(rows[0]['password']==password)
 			{
 			var json = JSON.stringify({
 				SomeWords:"matched"});
